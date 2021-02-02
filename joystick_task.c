@@ -150,11 +150,11 @@ void task_joystick(void* param)
 					theta = 50;
 				}
 
-				if (frame.x > 0) /* Joystick is up - we want values from 50 to 100 where 50 is vertical and 100 is up */
+				if (frame.x < 0) /* Joystick is right - we want values from 50 to 100 where 50 is vertical and 100 is right */
 				{
 					joystick_x = (int8_t)(theta + 50);
 				}
-				else /* Joystick is down - we want values from 0 to 50 where 0 is down and 50 is vertical */
+				else /* Joystick is left - we want values from 0 to 50 where 0 is left and 50 is vertical */
 				{
 					joystick_x = (int8_t)(50 - theta) ;
 				}
