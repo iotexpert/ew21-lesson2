@@ -54,11 +54,11 @@
 /*******************************************************************************
 * Global constants
 *******************************************************************************/
-#define CAPSENSE_INTERRUPT_PRIORITY    (7u)
+#define CAPSENSE_INTERRUPT_PRIORITY     (7)
 
-#define CAPSENSE_SCAN_INTERVAL_MS    (100u)   /* in milliseconds*/
+#define CAPSENSE_SCAN_INTERVAL_MS       (100)   /* in milliseconds*/
 
-#define NUM_ELEMENTS (1u)
+#define NUM_ELEMENTS                    (1)
 
 /*******************************************************************************
 * Function Prototypes
