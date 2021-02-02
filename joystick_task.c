@@ -162,7 +162,7 @@ void task_joystick(void* param)
 				/* Only update/print new value if it has changed by more than the hysteresis value */
 				if((joystick_x > (joystick_x_prev + JOYSTICK_HYSTERESIS)) || (joystick_x < (joystick_x_prev - JOYSTICK_HYSTERESIS)))
 				{
-					printf("Joystick X Angle: %d  Theta: %0.2f  X: %d,  Y: %d,  Z: %d\n", joystick_x, radius, frame.x, frame.y, frame.z);
+					printf("Joystick X Angle: %d  Raw  X: %d,  Y: %d,  Z: %d\n", joystick_x, frame.x, frame.y, frame.z);
 					joystick_x_prev = joystick_x;
 				}
 			}
