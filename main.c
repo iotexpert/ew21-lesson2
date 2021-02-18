@@ -2,11 +2,13 @@
 #include "cyhal.h"
 #include "cybsp.h"
 #include "cy_retarget_io.h"
+
 #include <stdio.h>
+
 #include "FreeRTOS.h"
 #include "task.h"
-#include "joystick_task.h"
 
+#include "joystick_task.h"
 #include "capsense_task.h"
 
 volatile int uxTopUsedPriority ;
@@ -25,8 +27,8 @@ int main(void)
 
     printf("Application Started\n");
 
-    xTaskCreate(capsense_task, "CapSense Task", configMINIMAL_STACK_SIZE, NULL, (configMAX_PRIORITIES - 1), 0);
-    xTaskCreate(joystick_task, "Joystick Task", (configMINIMAL_STACK_SIZE*4), NULL, (configMAX_PRIORITIES - 2), 0);
+    xTaskCreate(capsense_task, "CapSense", configMINIMAL_STACK_SIZE, NULL, (configMAX_PRIORITIES - 1), 0);
+    xTaskCreate(joystick_task, "Joystick", (configMINIMAL_STACK_SIZE*4), NULL, (configMAX_PRIORITIES - 2), 0);
 
     vTaskStartScheduler();
 }
