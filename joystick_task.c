@@ -59,12 +59,11 @@
 #define JOYSTICK_INTERVAL_MS    (100)   /* in milliseconds*/
 #define JOYSTICK_HYSTERESIS		(1)
 
-#define PI 3.14159265359
 
 /*******************************************************************************
 * Function Prototypes
 *******************************************************************************/
-void printError(char* string, cy_rslt_t result);
+static void printError(char* string, cy_rslt_t result);
 
 /******************************************************************************
 * Global variables
@@ -80,8 +79,10 @@ void printError(char* string, cy_rslt_t result);
 *  void *param : Task parameter defined during task creation (unused)
 *
 *******************************************************************************/
-void task_joystick(void* param)
+void joystick_task(void* param)
 {
+	CY_UNUSED_PARAMETER(param);
+
     cy_rslt_t result;
 
     TLx493D_data_frame_t frame;
@@ -92,21 +93,15 @@ void task_joystick(void* param)
 	float radius;
     float theta;
 
-    /* Remove warning for unused parameter */
-    (void)param;
+
 
     /* Initialize I2C interface to talk to the TLx493D sensor */
-	result = TLxI2CInit(CYBSP_I2C_SDA,
+	TLxI2CInit(CYBSP_I2C_SDA,
 						CYBSP_I2C_SCL,
 						0 /* Use Default Sensor Address */,
 						0 /* Use Default Speed */,
 						NULL /* Use Auto-assigned clock */);
 
-    if (result != CY_RSLT_SUCCESS)
-    {
-    	printError("Failed on I2C Init", result);
-        CY_ASSERT(0);
-    }
 
     /* Configure the TLx493D sensor */
     result = TLx493D_init();
@@ -141,7 +136,7 @@ void task_joystick(void* param)
 			theta = acos ((float)frame.z/radius);
 
 			/* Convert theta to a range of 0 to 50 instead of 0 to PI/2 for one quadrant */
-			theta = theta * 100 / PI;
+			theta = theta * 100 / M_PI;
 			/* Cap the max at 50 */
 			if(theta > 50)
 			{
